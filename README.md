@@ -163,10 +163,11 @@ print([row for row in rows])
 ```
 
 Or using DBAPI:
-```python
-from es.opendistro.api import connect
 
-conn = connect(host='localhost',port=9200,path="", scheme="http")
+```python
+from es.opensearch.api import connect
+
+conn = connect(host='localhost', port=9200, path="", scheme="http")
 
 curs = conn.cursor().execute(
     "select * from flights LIMIT 10"

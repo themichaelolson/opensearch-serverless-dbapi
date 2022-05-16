@@ -29,7 +29,7 @@ setup(
         ]
     },
     install_requires=["elasticsearch>7, <7.14", "packaging>=21.0, <22.0", "sqlalchemy"],
-    extras_require={"opendistro": ["requests_aws4auth", "boto3"]},
+    extras_require={"opensearch": ["requests_aws4auth", "boto3" ,"opensearch-py>1.3"]},
     author="Preset Inc.",
     author_email="daniel@preset.io",
     url="http://preset.io",
