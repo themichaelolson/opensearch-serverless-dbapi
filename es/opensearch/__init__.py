@@ -10,7 +10,7 @@ from es.exceptions import (
     ProgrammingError,
     Warning,
 )
-from es.opendistro.api import connect
+from es.opensearch.api import connect
 
 
 __all__ = [

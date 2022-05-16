@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 from es.elastic.api import connect as elastic_connect, Type
 from es.exceptions import Error, NotSupportedError, OperationalError, ProgrammingError
-from es.opendistro.api import connect as open_connect
+from es.opensearch.api import connect as open_connect
 
 
 def convert_bool(value: str) -> bool:

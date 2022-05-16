@@ -6,8 +6,8 @@ from __future__ import unicode_literals
 import re
 from typing import Any, Dict, List, Optional, Tuple
 
-from elasticsearch import Elasticsearch, RequestsHttpConnection
-from elasticsearch.exceptions import ConnectionError
+from opensearchpy import OpenSearch, RequestsHttpConnection
+from opensearchpy.exceptions import ConnectionError
 from es import exceptions
 from es.baseapi import (
     apply_parameters,
@@ -66,14 +66,14 @@ class Connection(BaseConnection):
             **kwargs,
         )
         if user and password and "aws_keys" not in kwargs:
-            self.es = Elasticsearch(self.url, http_auth=(user, password), **self.kwargs)
+            self.es = OpenSearch(self.url, http_auth=(user, password), **self.kwargs)
         # AWS configured credentials on the connection string
         elif user and password and "aws_keys" in kwargs and "aws_region" in kwargs:
             aws_auth = self._aws_auth(user, password, kwargs["aws_region"])
             kwargs.pop("aws_keys")
             kwargs.pop("aws_region")
 
-            self.es = Elasticsearch(
+            self.es = OpenSearch(
                 self.url,
                 http_auth=aws_auth,
                 connection_class=RequestsHttpConnection,
@@ -82,14 +82,14 @@ class Connection(BaseConnection):
         # aws_profile=<region>
         elif "aws_profile" in kwargs:
             aws_auth = self._aws_auth_profile(kwargs["aws_profile"])
-            self.es = Elasticsearch(
+            self.es = OpenSearch(
                 self.url,
                 http_auth=aws_auth,
                 connection_class=RequestsHttpConnection,
                 **kwargs,
             )
         else:
-            self.es = Elasticsearch(self.url, **self.kwargs)
+            self.es = OpenSearch(self.url, **self.kwargs)
 
     @staticmethod
     def _aws_auth_profile(region: str) -> Any:
@@ -130,7 +130,7 @@ class Cursor(BaseCursor):
         "select 1": "get_valid_select_one",
     }
 
-    def __init__(self, url: str, es: Elasticsearch, **kwargs: Any) -> None:
+    def __init__(self, url: str, es: OpenSearch, **kwargs: Any) -> None:
         super().__init__(url, es, **kwargs)
         self.sql_path = kwargs.get("sql_path") or "_opendistro/_sql"
         # Opendistro SQL v2 flag

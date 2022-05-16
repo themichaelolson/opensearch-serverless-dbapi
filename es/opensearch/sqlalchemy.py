@@ -3,7 +3,7 @@ from types import ModuleType
 from typing import Any, Dict, List, Optional
 
 from es import basesqlalchemy
-import es.opendistro
+import es.opensearch
 from sqlalchemy.engine import Connection
 
 logger = logging.getLogger(__name__)
