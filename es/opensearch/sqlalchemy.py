@@ -27,7 +27,7 @@ class ESDialect(basesqlalchemy.BaseESDialect):
 
     @classmethod
     def dbapi(cls) -> ModuleType:
-        return es.opendistro
+        return es.opensearch
 
     def get_table_names(
         self, connection: Connection, schema: Optional[str] = None, **kwargs: Any
