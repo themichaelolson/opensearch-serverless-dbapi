@@ -20,10 +20,10 @@ from es.const import DEFAULT_SCHEMA
 
 
 def connect(
-    host: str = "localhost",
-    port: int = 443,
+    host: str = "node1",
+    port: int = 9200,
     path: str = "",
-    scheme: str = "https",
+    scheme: str = "http",
     user: Optional[str] = None,
     password: Optional[str] = None,
     context: Optional[Dict[Any, Any]] = None,
@@ -46,10 +46,10 @@ class Connection(BaseConnection):
 
     def __init__(
         self,
-        host: str = "localhost",
-        port: int = 443,
+        host: str = "node1",
+        port: int = 9200,
         path: str = "",
-        scheme: str = "https",
+        scheme: str = "http",
         user: Optional[str] = None,
         password: Optional[str] = None,
         context: Optional[Dict[Any, Any]] = None,
