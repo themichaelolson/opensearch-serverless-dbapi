@@ -24,9 +24,8 @@ def connect(
     port: int = 9200,
     path: str = "",
     scheme: str = "http",
-    user: Optional[str] = 'admin',
-    password: Optional[str] = 'admin',
-    verify_certs=False,
+    user: Optional[str] = None,
+    password: Optional[str] = None,
     context: Optional[Dict[Any, Any]] = None,
     **kwargs: Any,
 ) -> BaseConnection:
@@ -51,9 +50,8 @@ class Connection(BaseConnection):
         port: int = 9200,
         path: str = "",
         scheme: str = "http",
-        user: Optional[str] = 'admin',
-        password: Optional[str] = 'admin',
-        verify_certs=False,
+        user: Optional[str] = None,
+        password: Optional[str] = None,
         context: Optional[Dict[Any, Any]] = None,
         **kwargs: Any,
     ):
