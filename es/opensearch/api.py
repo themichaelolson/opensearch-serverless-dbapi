@@ -69,7 +69,7 @@ class Connection(BaseConnection):
             **kwargs,
         )
         if user and password and "aws_keys" not in kwargs:
-            self.es = OpenSearch(self.url, http_auth=(user, password), **self.kwargs, verify_certs=verify_certs)
+            self.es = OpenSearch(self.url, http_auth=(user, password), **self.kwargs)
         # AWS configured credentials on the connection string
         elif user and password and "aws_keys" in kwargs and "aws_region" in kwargs:
             aws_auth = self._aws_auth(user, password, kwargs["aws_region"])
