@@ -23,7 +23,7 @@ setup(
             "elasticsearch = es.elastic.sqlalchemy:ESHTTPDialect",
             "elasticsearch.http = es.elastic.sqlalchemy:ESHTTPDialect",
             "elasticsearch.https = es.elastic.sqlalchemy:ESHTTPSDialect",
-            "odelasticsearch = es.opendistro.sqlalchemy:ESHTTPDialect",
+            "odelasticsearch = es.opensearch.sqlalchemy:ESHTTPDialect",
             "odelasticsearch.http = es.opensearch.sqlalchemy:ESHTTPDialect",
             "odelasticsearch.https = es.opensearch.sqlalchemy:ESHTTPSDialect",
         ]
