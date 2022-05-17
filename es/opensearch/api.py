@@ -38,7 +38,7 @@ def connect(
 
     """
     context = context or {}
-    return Connection(host, port, path, scheme, user, password, context, **kwargs)
+    return Connection(host, port, path, scheme, user, password, context, verify_certs, **kwargs)
 
 
 class Connection(BaseConnection):
@@ -65,10 +65,11 @@ class Connection(BaseConnection):
             user=user,
             password=password,
             context=context,
+            verify_certs=verify_certs,
             **kwargs,
         )
         if user and password and "aws_keys" not in kwargs:
-            self.es = OpenSearch(self.url, http_auth=(user, password), **self.kwargs)
+            self.es = OpenSearch(self.url, http_auth=(user, password), **self.kwargs, verify_certs=verify_certs)
         # AWS configured credentials on the connection string
         elif user and password and "aws_keys" in kwargs and "aws_region" in kwargs:
             aws_auth = self._aws_auth(user, password, kwargs["aws_region"])
