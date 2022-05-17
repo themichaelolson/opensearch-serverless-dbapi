@@ -23,10 +23,11 @@ def connect(
     host: str = "node1",
     port: int = 9200,
     path: str = "",
-    scheme: str = "http",
+    scheme: str = "https",
     user: Optional[str] = None,
     password: Optional[str] = None,
     context: Optional[Dict[Any, Any]] = None,
+    verify_certs=False,
     **kwargs: Any,
 ) -> BaseConnection:
     """
@@ -49,10 +50,11 @@ class Connection(BaseConnection):
         host: str = "node1",
         port: int = 9200,
         path: str = "",
-        scheme: str = "http",
+        scheme: str = "https",
         user: Optional[str] = None,
         password: Optional[str] = None,
         context: Optional[Dict[Any, Any]] = None,
+        verify_certs=False,
         **kwargs: Any,
     ):
         super().__init__(
