@@ -298,4 +298,4 @@ class Cursor(BaseCursor):
         query = query.replace("  ", " ")
         query = query.replace("\n", " ")
         # remove dummy schema from queries
-        return query.replace(f"FROM {DEFAULT_SCHEMA}.", "FROM ")
+        return query.replace(f'FROM "{DEFAULT_SCHEMA}".', "FROM ")
