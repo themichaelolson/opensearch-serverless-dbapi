@@ -278,6 +278,9 @@ class Cursor(BaseCursor):
             return self.get_valid_columns(re_table_name[1])
 
         query = apply_parameters(operation, parameters)
+        print('aqui está a query', query)
+        print('operacoes', operation)
+        print('parametros', parameters)
         results = self.elastic_query(query)
 
         rows = [tuple(row) for row in results.get("datarows", [])]
