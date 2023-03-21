@@ -295,4 +295,5 @@ class Cursor(BaseCursor):
         query = query.replace("  ", " ")
         query = query.replace("\n", " ")
         # remove dummy schema from queries
+        print('essa é a query', query)
         return query.replace(f"FROM {DEFAULT_SCHEMA}.", "FROM ")
