@@ -20,12 +20,9 @@ setup(
     zip_safe=False,
     entry_points={
         "sqlalchemy.dialects": [
-            "elasticsearch = es.elastic.sqlalchemy:ESHTTPDialect",
-            "elasticsearch.http = es.elastic.sqlalchemy:ESHTTPDialect",
-            "elasticsearch.https = es.elastic.sqlalchemy:ESHTTPSDialect",
-            "odelasticsearch = es.opensearch.sqlalchemy:ESHTTPDialect",
-            "odelasticsearch.http = es.opensearch.sqlalchemy:ESHTTPDialect",
-            "odelasticsearch.https = es.opensearch.sqlalchemy:ESHTTPSDialect",
+            "aoss = es.aoss.sqlalchemy:ESHTTPDialect",
+            "aoss.http = es.aoss.sqlalchemy:ESHTTPDialect",
+            "aoss.https = es.aoss.sqlalchemy:ESHTTPSDialect",
         ]
     },
     install_requires=["elasticsearch>7, <7.14", "packaging>=21.0, <22.0", "sqlalchemy", "opensearch-py>1", "trino"],
