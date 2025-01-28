@@ -21,7 +21,7 @@ from es.const import DEFAULT_SCHEMA
 
 def connect(
     host: str = "node1",
-    port: int = 9200,
+    port: int = 443,
     path: str = "",
     scheme: str = "https",
     user: Optional[str] = None,
@@ -33,7 +33,7 @@ def connect(
     """
     Constructor for creating a connection to the database.
 
-        >>> conn = connect('localhost', 9200)
+        >>> conn = connect('localhost', 443)
         >>> curs = conn.cursor()
 
     """
@@ -48,7 +48,7 @@ class Connection(BaseConnection):
     def __init__(
         self,
         host: str = "node1",
-        port: int = 9200,
+        port: int = 443,
         path: str = "",
         scheme: str = "https",
         user: Optional[str] = None,
