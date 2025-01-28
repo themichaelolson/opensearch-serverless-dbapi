@@ -19,7 +19,7 @@ class ESTypeCompiler(basesqlalchemy.BaseESTypeCompiler):  # pragma: no cover
 
 class ESDialect(basesqlalchemy.BaseESDialect):
 
-    name = "odelasticsearch"
+    name = "aoss"
     scheme = "http"
     driver = "rest"
     statement_compiler = ESCompiler

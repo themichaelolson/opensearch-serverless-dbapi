@@ -148,13 +148,13 @@ $ nosetests -v
 ### Special case for sql opendistro endpoint (AWS ES)
 
 AWS ES exposes the opendistro SQL plugin, and it follows a different SQL dialect.
-Using the `odelasticsearch` driver:
+Using the `aoss` driver:
 
 ```python
 from sqlalchemy.engine import create_engine
 
 engine = create_engine(
-    "odelasticsearch+https://search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/"
+    "aoss+https://search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/"
 )
 rows = engine.connect().execute(
     "select count(*), Carrier from flights GROUP BY Carrier"
@@ -184,7 +184,7 @@ Basic authentication is configured as expected on the <username>,<password> fiel
 from sqlalchemy.engine import create_engine
 
 engine = create_engine(
-    "odelasticsearch+https://my_user:my_password@search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/"
+    "aoss+https://my_user:my_password@search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/"
 )
 ```
 
@@ -199,7 +199,7 @@ Query string keys are:
 from sqlalchemy.engine import create_engine
 
 engine = create_engine(
-    "odelasticsearch+https://<AWS_ACCESS_KEY>:<AWS_SECRET_KEY>@search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/?aws_keys=1&&aws_region=<AWS_REGION>"
+    "aoss+https://<AWS_ACCESS_KEY>:<AWS_SECRET_KEY>@search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/?aws_keys=1&&aws_region=<AWS_REGION>"
 )
 ```
 
@@ -209,7 +209,7 @@ IAM AWS profile is configured has a query parameter name `aws_profile` on the UR
 from sqlalchemy.engine import create_engine
 
 engine = create_engine(
-    "odelasticsearch+https://search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/?aws_profile=us-west-2"
+    "aoss+https://search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/?aws_profile=us-west-2"
 )
 ```
 
@@ -222,11 +222,11 @@ This DBAPI has to behave slightly different for SQL v1 and SQL v2, by default we
 to enable v2 support, pass `v2=true` has a query parameter.
 
 ```
-odelasticsearch+https://search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/?aws_profile=us-west-2&v2=true
+aoss+https://search-SOME-CLUSTER.us-west-2.es.amazonaws.com:443/?aws_profile=us-west-2&v2=true
 ```
 
 To connect to the provided Opendistro ES on `docker-compose` use the following URI:
-`odelasticsearch+https://admin:admin@localhost:9400/?verify_certs=False`
+`aoss+https://admin:admin@localhost:9400/?verify_certs=False`
 
 ### Known limitations
 

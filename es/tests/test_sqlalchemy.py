@@ -107,7 +107,7 @@ class TestSQLAlchemy(unittest.TestCase):
         """
         SQLAlchemy: Test get_columns exclude arrays (elastic only)
         """
-        if self.driver_name == "odelasticsearch":
+        if self.driver_name == "aoss":
             return
         metadata = MetaData()
         metadata.reflect(bind=self.engine)
@@ -139,7 +139,7 @@ class TestSQLAlchemy(unittest.TestCase):
 
     def test_get_columns_exclude_geo_point(self):
         """
-        SQLAlchemy: Test get_columns exclude geo point (odelasticsearch only)
+        SQLAlchemy: Test get_columns exclude geo point (aoss only)
         """
         if self.driver_name == "elasticsearch":
             return
@@ -188,11 +188,11 @@ class TestSQLAlchemy(unittest.TestCase):
         """
         SQLAlchemy: test Elasticsearch is called AWS4Auth
         """
-        if self.driver_name == "odelasticsearch":
+        if self.driver_name == "aoss":
 
             mock_aws4auth.return_value = None
             self.engine = create_engine(
-                "odelasticsearch+http://aws_access_key_x:aws_secret_key_y@"
+                "aoss+http://aws_access_key_x:aws_secret_key_y@"
                 "localhost:9200/?aws_keys=1&aws_region=us-west-2"
             )
             self.connection = self.engine.connect()
@@ -205,7 +205,7 @@ class TestSQLAlchemy(unittest.TestCase):
         """
         SQLAlchemy: test Elasticsearch is called AWS4Auth
         """
-        if self.driver_name != "odelasticsearch":
+        if self.driver_name != "aoss":
             return
 
         from boto3.session import Session
@@ -218,7 +218,7 @@ class TestSQLAlchemy(unittest.TestCase):
         )
         mock_aws4auth.return_value = None
         self.engine = create_engine(
-            "odelasticsearch+http://localhost:9200/?aws_profile=us-west-2"
+            "aoss+http://localhost:9200/?aws_profile=us-west-2"
         )
         self.connection = self.engine.connect()
         mock_aws4auth.assert_called_once_with(
@@ -316,7 +316,7 @@ class TestSQLAlchemy(unittest.TestCase):
         self.engine.dialect.do_ping(conn)
 
     def test_opendistro_ping_failed(self):
-        if self.driver_name != "odelasticsearch":
+        if self.driver_name != "aoss":
             return
         from elasticsearch.exceptions import ConnectionError
 
