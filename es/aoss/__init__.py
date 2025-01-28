@@ -10,7 +10,7 @@ from es.exceptions import (
     ProgrammingError,
     Warning,
 )
-from es.opensearch.api import connect
+from es.aoss.api import connect
 
 
 __all__ = [

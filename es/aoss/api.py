@@ -21,14 +21,14 @@ from es.const import DEFAULT_SCHEMA
 
 
 def connect(
-    host: str = "node1",
+    host: str = "localhost",
     port: int = 443,
     path: str = "",
     scheme: str = "https",
     user: Optional[str] = None,
     password: Optional[str] = None,
     context: Optional[Dict[Any, Any]] = None,
-    verify_certs=False,
+    verify_certs=True,
     **kwargs: Any,
 ) -> BaseConnection:
     """
@@ -48,7 +48,7 @@ class Connection(BaseConnection):
 
     def __init__(
         self,
-        host: str = "node1",
+        host: str = "localhost",
         port: int = 443,
         path: str = "",
         scheme: str = "https",
@@ -58,6 +58,7 @@ class Connection(BaseConnection):
         verify_certs=False,
         **kwargs: Any,
     ):
+        print("Initializing Connection")
         super().__init__(
             host=host,
             port=port,
@@ -119,6 +120,7 @@ class Connection(BaseConnection):
 
     @check_closed
     def cursor(self) -> "Cursor":
+        print("Fetching cursor")
         """Return a new Cursor Object using the connection."""
         if self.es:
             cursor = Cursor(self.url, self.es, **self.kwargs)
