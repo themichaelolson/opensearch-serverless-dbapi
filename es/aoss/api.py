@@ -5,8 +5,9 @@ from __future__ import unicode_literals
 
 import re
 from typing import Any, Dict, List, Optional, Tuple
-
-from opensearchpy import OpenSearch, RequestsHttpConnection
+import boto3
+from botocore.credentials import Credentials
+from opensearchpy import AWSV4SignerAuth, OpenSearch, RequestsHttpConnection
 from opensearchpy.exceptions import ConnectionError
 from es import exceptions
 from es.baseapi import (
@@ -69,9 +70,11 @@ class Connection(BaseConnection):
             **kwargs,
         )
         if user and password and "aws_keys" not in kwargs:
+            print("Connection initialized using username and password, NOT aws_keys")
             self.es = OpenSearch(self.url, http_auth=(user, password), **self.kwargs)
         # AWS configured credentials on the connection string
         elif user and password and "aws_keys" in kwargs and "aws_region" in kwargs:
+            print("Connection initialized using username and password, but aws_keys also used")
             aws_auth = self._aws_auth(user, password, kwargs["aws_region"])
             kwargs.pop("aws_keys")
             kwargs.pop("aws_region")
@@ -84,6 +87,7 @@ class Connection(BaseConnection):
             )
         # aws_profile=<region>
         elif "aws_profile" in kwargs:
+            print("Connection initialized using aws_profile")
             aws_auth = self._aws_auth_profile(kwargs["aws_profile"])
             self.es = OpenSearch(
                 self.url,
@@ -92,28 +96,26 @@ class Connection(BaseConnection):
                 **kwargs,
             )
         else:
+            print("Connection initialized using default connection builder")
             self.es = OpenSearch(self.url, **self.kwargs)
 
     @staticmethod
     def _aws_auth_profile(region: str) -> Any:
-        from requests_aws4auth import AWS4Auth
-        import boto3
-
-        service = "es"
-        credentials = boto3.Session().get_credentials()
-        return AWS4Auth(
-            credentials.access_key,
-            credentials.secret_key,
-            region,
-            service,
-            session_token=credentials.token,
+        print("Called _aws_auth_profile")
+        return AWSV4SignerAuth(
+            credentials=boto3.Session().get_credentials(),
+            region=region,
+            service="aoss"
         )
 
     @staticmethod
     def _aws_auth(aws_access_key: str, aws_secret_key: str, region: str) -> Any:
-        from requests_aws4auth import AWS4Auth
-
-        return AWS4Auth(aws_access_key, aws_secret_key, region, "es")
+        print("Called _aws_auth")
+        return AWSV4SignerAuth(
+            credentials=Credentials(aws_access_key, aws_secret_key),
+            region=region,
+            service="aoss"
+        )
 
     @check_closed
     def cursor(self) -> "Cursor":
